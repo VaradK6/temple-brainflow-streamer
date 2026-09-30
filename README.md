@@ -10,7 +10,16 @@
 </p>
 
 > A high-throughput, non-blocking telemetry ingestion and live streaming engine designed for continuous cerebral hemodynamics and autonomic entropy tracking. Built from first principles to demonstrate zero-thread-starvation biosensor ingestion for health wearables.
----
+
+## 🎯 Why I Built This
+
+I built this project after coming across Temple's engineering opportunity and learning about its work around Brain Flow and physiological measurement.
+
+I wanted to explore the software-engineering challenges behind continuous physiological telemetry: ingesting sensor data, broadcasting live events, maintaining persistent streams, and visualizing physiological state in real time.
+
+The project is intentionally scoped as a small engineering prototype rather than an attempt to reproduce Temple's proprietary technology.
+
+------
 
 ## ⚡ The Engineering Problem: Wearable Telemetry at Scale
 
@@ -39,9 +48,20 @@ Continuous forehead wearables tracking prefrontal hemodynamics stream uninterrup
                   │
                   │  GET /api/v1/telemetry/stream (SSE 1Hz Push)
                   ▼
-     [Real-Time Medical Console]
+     [Real-Time Telemetry Console]
      (Native EventSource + Chart.js + Sliding Window Buffer)
 ```
+
+### Architecture & Engineering Decisions
+
+| Technology / Component | Purpose |
+|---|---|
+| **Spring WebFlux** | Non-blocking telemetry ingestion and real-time streaming |
+| **Netty** | Event-driven networking for persistent streaming connections |
+| **Sinks.Many** | In-memory broadcasting of telemetry events to subscribers |
+| **Flux.merge()** | Combines generated baseline telemetry with externally ingested events |
+| **Server-Sent Events (SSE)** | Lightweight server-to-browser real-time telemetry streaming |
+| **Bounded Client Buffer** | Keeps only the latest 25 readings to prevent unbounded memory growth |
 
 ### Core Architecture Highlights
 
@@ -111,3 +131,22 @@ Invoke-RestMethod -Uri "http://localhost:8080/api/v1/telemetry/ingest" `
 | **Pulse Transit Time (PTT)** | 180 – 260 ms | Vascular compliance marker; inversely tracks arterial stiffness and sympathetic strain |
 | **Autonomic Entropy** | 0.05 – 1.00 | Quantitative metabolic strain vs. recovery equilibrium |
 | **State Classifier** | Categorical | Threshold evaluation: `OPTIMAL` (< 0.45), `ELEVATED_STRAIN`, `CEREBRAL_FATIGUE` (> 0.70) |
+
+---
+
+## ⚠️ Limitations & Scope
+
+This project is an engineering prototype focused on real-time physiological telemetry streaming.
+
+The physiological signals, mathematical relationships, and cognitive-state classifications are simulated/modelled for demonstration purposes and are **not clinically validated measurements**.
+
+The project does not attempt to reproduce Temple's proprietary algorithms, hardware, datasets, or internal systems. Its purpose is to explore the software-engineering challenges involved in continuous physiological telemetry ingestion, reactive event streaming, and real-time visualization.
+
+---
+
+## 🔮 Future Improvements
+
+- Integrate real wearable/device telemetry instead of simulated signals.
+- Add persistent storage for historical telemetry and longitudinal analysis.
+- Add authentication and device-level access control for telemetry ingestion.
+- Add production observability with metrics, structured logging, and distributed tracing.
