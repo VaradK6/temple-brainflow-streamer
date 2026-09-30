@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/Architecture-Event--Driven-teal?style=for-the-badge)](#)
 
 <p align="center">
-  <img src="assets/demo.gif" alt="Temple BrainFlow Live Telemetry Console" width="850"/>
+  <img src="docs/demo.gif" alt="Temple BrainFlow Live Telemetry Console" width="850"/>
 </p>
 
 > A high-throughput, non-blocking telemetry ingestion and live streaming engine designed for continuous cerebral hemodynamics and autonomic entropy tracking. Built from first principles to demonstrate zero-thread-starvation biosensor ingestion for health wearables.
